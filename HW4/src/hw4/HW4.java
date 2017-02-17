@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package hw4;
+import time.*;
 
 /**
  *
@@ -16,6 +17,10 @@ public class HW4 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        MilTime = new MilTime("0522", 33);
+        
+        
+        
     }
     
 }

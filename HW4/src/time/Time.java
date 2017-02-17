@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hw4;
+package time;
 
 /**
  *
  * @author Eddie
  */
 public class Time {
-    private int hour;
-    private int minutes;
-    private int seconds;
+    int hour;
+    int minutes;
+    int seconds;
     
     Time(){
         hour = 0;
