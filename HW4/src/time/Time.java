@@ -14,13 +14,13 @@ public class Time {
     int minutes;
     int seconds;
     
-    Time(){
+    public Time(){
         hour = 0;
         minutes = 0;
         seconds = 0;
     }
     
-    Time(int h,int m,int s){
+    public Time(int h,int m,int s){
         hour = h;
         minutes = m;
         seconds = s;

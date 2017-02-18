@@ -1,4 +1,4 @@
-package javaproject2;
+package Customer;
 
 /**
  *

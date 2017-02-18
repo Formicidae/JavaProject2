@@ -14,7 +14,8 @@ public class TimeClock extends MilTime{
     int endSeconds;
     
     public TimeClock(int h,int m,int s,int eh,int em,int es){
-        super.Time(h,m,s);
+        //super.(valueOf((h.toString()+m.toString)),s);
+        super.MilTime((Integer) 1200,s);
         endMil = ((Integer)eh).toString() + ((Integer)em).toString();
         endSeconds = es;  
     }

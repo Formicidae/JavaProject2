@@ -49,7 +49,7 @@ public class MilTime extends Time{
     }
     
     public void setTime(Integer mil, int s){
-                if(mil > 2359){
+        if(mil > 2359){
             mil = 2359;
             hour = (int)((mil.toString()).charAt(1)) + (10*((int)((mil.toString()).charAt(0))));
             minutes = (int)((mil.toString()).charAt(3)) + (10*((int)((mil.toString()).charAt(2))));
