@@ -1,27 +1,35 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package time;
 
 /**
- *
- * @author Eddie
+ * @author Eddie emb160030
  */
 public class TimeClock extends MilTime{
-    String endMil;
-    int endSeconds;
+    public MilTime mil;
+    public int endSeconds;
     
-    public TimeClock(int h,int m,int s,int eh,int em,int es){
-        //super.(valueOf((h.toString()+m.toString)),s);
-        super.MilTime((Integer) 1200,s);
-        endMil = ((Integer)eh).toString() + ((Integer)em).toString();
-        endSeconds = es;  
+    public TimeClock(MilTime start,MilTime end){
+        super(start);
+        mil = end; 
     }
     
     public int TimeDifference(){
-        return ((int)(endMil.charAt(1)) + (10*((int)(endMil.charAt(0))))) - super.hour;
+        return (getMil().getStandHr() - super.hour);
+    }
+
+    public MilTime getMil() {
+        return mil;
+    }
+
+    public void setMil(MilTime mil) {
+        this.mil = mil;
+    }
+
+    public int getEndSeconds() {
+        return endSeconds;
+    }
+
+    public void setEndSeconds(int endSeconds) {
+        this.endSeconds = endSeconds;
     }
     
 }
