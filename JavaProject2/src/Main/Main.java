@@ -21,10 +21,9 @@ public class Main {
     
     public static void main(String[] args) throws IOException{
 
-        //preferred
+        //preferred file opening and adding to array
         try {
             File Fprefers = new File("preferred.dat");
-            //Preferred_Customer[] Preferred = new Preferred_Customer[0];
             Scanner Sprefers = new Scanner(Fprefers);
             while(Sprefers.hasNextLine()){
 		Preferred = addCustomerP(Preferred,LineToCustP(Sprefers.nextLine()));
@@ -35,7 +34,7 @@ public class Main {
              System.out.println("File not found" + e);
         }
         
-        // customers.dat
+        // customers.dat file opening and adding to array
         try {
             File Fcustomers = new File("customers.dat");
             //Customer[] Customs = new Customer[0];
@@ -49,7 +48,7 @@ public class Main {
              System.out.println("File not found" + e);
         }
         
-        //orders.dat.
+        //orders.dat file opening abd buying with each line
         try {
             File FOrders = new File("orders.dat");
             Scanner sc = new Scanner(FOrders);
@@ -62,6 +61,7 @@ public class Main {
              System.out.println("File not found" + e);
         }
         
+        //Opens preferred for output and prints array
         File FprefersO = new File("preferred.dat");
  
 	OutputStream POut = new FileOutputStream(FprefersO);
@@ -75,6 +75,7 @@ public class Main {
         }
         POut.close();
         
+        //Opens customers for output and prints array
         File FcustO = new File("customers.dat");
  
 	OutputStream cOut = new FileOutputStream(FcustO);
@@ -94,7 +95,7 @@ public class Main {
     public static Customer LineToCust(String s){
         Customer c1 = new Customer();
         
-        //String[] line = s.split(" ");
+        //Gets each part of the line
         Scanner st = new Scanner(s);
         c1.setID(st.nextDouble());
         c1.setfName(st.next());
@@ -109,24 +110,21 @@ public class Main {
     }
     
     public static Preferred_Customer LineToCustP(String s){
+        //Takes line and converts it into a preferred_customer
         Preferred_Customer c1 = new Preferred_Customer();
-        System.out.println(s);
-        //String[] line = s.split(" ");
         Scanner st = new Scanner(s);
         c1.setID(st.nextDouble());
         c1.setfName(st.next());
         c1.setlName(st.next());
         c1.setSpent(st.nextDouble());
-        //System.out.println(c1.getSpent());
         String dis = st.next();
-        //System.out.println(dis.substring(0,dis.length()-1));
         c1.setDiscount(Integer.parseInt(dis.substring(0,dis.length()-1)) / 100);
-        //System.out.println(c1.getDiscount());
 
         return c1;
     }
     
     public static Preferred_Customer[] addCustomer(Customer[] arr1,Customer cust){
+        //makes a new customer array one longer than the other and adds all elements plus the new one
         Preferred_Customer[] arr2 = new Preferred_Customer[arr1.length + 1];
         
         for(int i = 0;i < arr1.length;i++){
@@ -137,6 +135,7 @@ public class Main {
     }
     
     public static Preferred_Customer[] addCustomerP(Preferred_Customer[] arr1,Preferred_Customer cust){
+        //makes a new preferred_customer array one longer than the other and adds all elements plus the new one
         Preferred_Customer[] arr2 = new Preferred_Customer[arr1.length + 1];
         
         for(int i = 0;i < arr1.length;i++){
@@ -147,13 +146,14 @@ public class Main {
     }
     
     public static double drinkPrice(double r, double h, double o, double op, double sip, double quan){
+        //Uses elements of cylinder to get surafce area and calculate cost
 	Double price =  ((2 * Math.PI * r * h) + (r * r * Math.PI * 2)) * sip;
 	price += o * op;
 	return price * quan;
     }
     
     public static Customer[] removeCust(int index,Customer[] c){
-        System.out.println("REmoveing");
+        //Removes given customer
         Customer[] c1 = new Customer[c.length - 1];
         int skipped = 0;
         for(int i = 0; i < c.length;i++){
@@ -170,6 +170,7 @@ public class Main {
     }
     
     public static Preferred_Customer[] removeCustP(int index,Preferred_Customer[] c){
+        //Removes given preferred_customer
         Preferred_Customer[] c1 = new Preferred_Customer[c.length - 1];
         int skipped = 0;
         for(int i = 0; i < c.length;i++){
@@ -184,6 +185,7 @@ public class Main {
     }
     
     public static int findc(double id, Customer[] c){
+        //Finds customer
         for(int i = 0; i < c.length;i++){
             if(c[i].getID() == id){
                 return i;
@@ -193,6 +195,7 @@ public class Main {
     }
     
     public static int findp(double id, Preferred_Customer[] c){
+        //Finds a preferred_Customer
         for(int i = 0; i < c.length;i++){
             if(c[i].getID() == id){
                 return i;
@@ -202,6 +205,7 @@ public class Main {
     }
     
     public static void buy(double id, double price){
+        //Finds the customer or preferred with id given
         int index = findc(id,Customs);
         if(index == -1){
             index = findp(id,Preferred);
@@ -209,8 +213,8 @@ public class Main {
                 System.out.println("ID not found");
                 return;
             }
-            System.out.println(Preferred[index]);
-            Preferred[index].setSpent(price - (price * Preferred[index].getDiscount()));
+            //Adds drink price to customer and determines of it should get a discount
+            Preferred[index].setSpent((price - (price * Preferred[index].getDiscount())) + Preferred[index].getSpent());
             if(Preferred[index].getSpent() >= 200.0){
                 Preferred[index].setDiscount(.07);
             }
@@ -219,11 +223,14 @@ public class Main {
             }
         }
         else{
-            Customs[index].setSpent(price);
+            //Adds drink price to preferred_customer and determines of it should get a discount
+            Customs[index].setSpent(price + Customs[index].getSpent());
             if(Customs[index].getSpent() >= 150){
                 System.out.println("moveing to prefer");
                 Preferred = addCustomer(Preferred, Customs[index]);
                 Customs = removeCust(index, Customs);
+                index = (int)findp(id,Preferred);
+                System.out.println("Discount id: " + Preferred[index].getID());
                 Preferred[index].setDiscount(.05);
                 if(Preferred[index].getSpent() >= 200){
                     Preferred[index].setDiscount(.07);
@@ -231,16 +238,19 @@ public class Main {
                 if(Preferred[index].getSpent() >= 350){
                     Preferred[index].setDiscount(.1);
                 }
+                System.out.println("Discount amount: " + Preferred[index].getDiscount());
             }
         }
         
     }
     
     public static String printP(Preferred_Customer c){
+        //Prints formated preferred_customer
         return (int)c.getID() + " " + c.getfName() + " " + c.getlName() + " " + c.getSpent() + " " + (int)(100 * c.getDiscount()) + "%\n";
     }
     
     public static String printC(Customer c){
+        //Prints formated customer
         return (int)c.getID() + " " + c.getfName() + " " + c.getlName() + " " + c.getSpent() + "\n";
     }
     
