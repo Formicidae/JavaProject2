@@ -1,26 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hw4;
 import time.*;
 
 /**
- *
- * @author Eddie
+ * @author Eddie emb160030
  */
 public class HW4 {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
-        MilTime = new MilTime("0522", 33);
+        MilTime m = new MilTime("0522", 33);
+        MilTime e = new MilTime("1205", 36);
+        TimeClock t = new TimeClock(m,e);
+        System.out.println(t.TimeDifference());
         
+        MilTime tl = new MilTime("0755", 2);
+        m.setTime("1506", 45);
+        TimeClock rt = new TimeClock(tl,m);
+        System.out.println(rt.TimeDifference());
         
-        
-    }
-    
+    } 
 }

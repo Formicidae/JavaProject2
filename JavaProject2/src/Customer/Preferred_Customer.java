@@ -16,6 +16,18 @@ public class Preferred_Customer extends Customer {
         super(f,l,i,s);
         discount = p;
     }
+    
+    public Preferred_Customer(Customer c){
+        super(c.getfName(),c.getlName(),c.getID(),c.getSpent());
+        discount = 0;
+    }
+    
+    public Preferred_Customer(){
+        super();
+        discount = 0;
+    }
+    
+    
 
     /**
      * @return the discount

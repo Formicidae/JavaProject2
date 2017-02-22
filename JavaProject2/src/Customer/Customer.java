@@ -10,7 +10,14 @@ public class Customer {
     private double ID;
     private double spent;
     
-    Customer(String f, String l, double i, double s){
+    public Customer(){
+        fName = "";
+        lName = "";
+        ID = 0;
+        spent = 0;
+    }
+    
+    public Customer(String f, String l, double i, double s){
         fName = f;
         lName = l;
         ID = i;

@@ -1,22 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package time;
 
 import time.Time;
 
 /**
  *
- * @author Eddie
+ * @author Eddie emb160030
  */
 public class MilTime extends Time{
     int milHours;
-    
-    
-    
-    
+
     @Override
     public int getHour(){
         return milHours;
@@ -27,46 +20,59 @@ public class MilTime extends Time{
         milHours = h;
     }
     
-    public MilTime(Integer mil, int s){
-        if(mil > 2359){
-            mil = 2359;
-            hour = (int)((mil.toString()).charAt(1)) + (10*((int)((mil.toString()).charAt(0))));
-            minutes = (int)((mil.toString()).charAt(3)) + (10*((int)((mil.toString()).charAt(2))));
+    public MilTime(MilTime m){
+        this.milHours = m.milHours;
+        this.hour = m.hour;
+    }
+    
+    public MilTime(String mil, int s){
+        milHours = Integer.parseInt(mil);
+        if(Integer.parseInt(mil) > 2359){
+            mil = "2359";
+            hour = Integer.parseInt(mil.substring(1,2)) +  (10* Integer.parseInt(mil.substring(0,1)));
+            minutes = Integer.parseInt(mil.substring(3,4)) +  (10* Integer.parseInt(mil.substring(2,3)));
             seconds = s;
         }
-        else if((mil%100) > 60){
-            mil = 60;
-            hour = (int)((mil.toString()).charAt(1)) + (10*((int)((mil.toString()).charAt(0))));
-            minutes = (int)((mil.toString()).charAt(3)) + (10*((int)((mil.toString()).charAt(2))));
+        else if(Integer.parseInt(mil) < 0){
+            hour = 0;
+            minutes = 0;
             seconds = s;
         }
-        else if(mil < 0){
-            mil = 0;
-            hour = (int)((mil.toString()).charAt(1)) + (10*((int)((mil.toString()).charAt(0))));
-            minutes = (int)((mil.toString()).charAt(3)) + (10*((int)((mil.toString()).charAt(2))));
+        else if((Integer.parseInt(mil)%100) > 60){
+            hour = Integer.parseInt(mil.substring(1,2)) +  (10* Integer.parseInt(mil.substring(0,1)));
+            minutes = 60;
+            seconds = s;
+        }
+        else{
+            hour = Integer.parseInt(mil.substring(1,2)) +  (10* Integer.parseInt(mil.substring(0,1)));
+            minutes = Integer.parseInt(mil.substring(3,4)) +  (10* Integer.parseInt(mil.substring(2,3)));
             seconds = s;
         }
     }
     
-    public void setTime(Integer mil, int s){
-        if(mil > 2359){
-            mil = 2359;
-            hour = (int)((mil.toString()).charAt(1)) + (10*((int)((mil.toString()).charAt(0))));
-            minutes = (int)((mil.toString()).charAt(3)) + (10*((int)((mil.toString()).charAt(2))));
+    public void setTime(String mil, int s){
+        milHours = Integer.parseInt(mil);
+        if(Integer.parseInt(mil) > 2359){
+            mil = "2359";
+            hour = Integer.parseInt(mil.substring(1,2)) +  (10* Integer.parseInt(mil.substring(0,1)));
+            minutes = Integer.parseInt(mil.substring(3,4)) +  (10* Integer.parseInt(mil.substring(2,3)));
             seconds = s;
         }
-        else if((mil%100) > 60){
-            mil = 60;
-            hour = (int)((mil.toString()).charAt(1)) + (10*((int)((mil.toString()).charAt(0))));
-            minutes = (int)((mil.toString()).charAt(3)) + (10*((int)((mil.toString()).charAt(2))));
+        else if(Integer.parseInt(mil) < 0){
+            hour = 0;
+            minutes = 0;
             seconds = s;
         }
-        else if(mil < 0){
-            mil = 0;
-            hour = (int)((mil.toString()).charAt(1)) + (10*((int)((mil.toString()).charAt(0))));
-            minutes = (int)((mil.toString()).charAt(3)) + (10*((int)((mil.toString()).charAt(2))));
+        else if((Integer.parseInt(mil)%100) > 60){
+            hour = Integer.parseInt(mil.substring(1,2)) +  (10* Integer.parseInt(mil.substring(0,1)));
+            minutes = 60;
             seconds = s;
-        }  
+        }
+        else{
+            hour = Integer.parseInt(mil.substring(1,2)) +  (10 * Integer.parseInt(mil.substring(0,1)));
+            minutes = Integer.parseInt(mil.substring(3,4)) +  (10 * Integer.parseInt(mil.substring(2,3)));
+            seconds = s;
+        } 
     }
     
     public int getStandHr(){
